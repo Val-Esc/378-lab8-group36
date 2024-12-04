@@ -55,7 +55,7 @@ def query2(collection):
     average = 0
     #make sure values are in array to avoid dividing by 0
     if 0< len(waterConsum_readings):
-        for i in waterConsum_readings
+        for i in waterConsum_readings:
             average += i
         average = average / len(waterConsum_readings)
     else:
@@ -194,7 +194,7 @@ def main():
 
             # Decode and print received data from client
             query_choice = int.from_bytes(data, byteorder='big')
-            print(f"Received from client: {received_message}")
+            print(f"Received from client: {query_choice}")
             
             if query_choice == 1:
                 response = query1(collection)
