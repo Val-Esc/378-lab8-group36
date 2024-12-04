@@ -38,6 +38,19 @@ def query2(collection):
         "payload.parent_asset_uid": "47t-206-9t7-va5",
         "time": {"$gte": datetime.now() - timedelta(hours=2)}
     }
+    
+    projection = {
+        "payload.water-consm": 1,
+        "_id": 0
+    }
+
+    readings = collection.find(query, projection)
+    
+    for reading in readings:
+        waterConsum_readings.append(float(reading['payload']['water-consm']))
+
+
+
 
 def query3():
 
