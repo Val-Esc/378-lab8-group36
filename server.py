@@ -36,24 +36,24 @@ def query1(collection):
 
 def query2(collection):
     waterConsum_readings = []
-
     query = {
+        # identify the dishwasher using device ID
         "payload.parent_asset_uid": "47t-206-9t7-va5",
+        # use data from past 2 hours to represent cycle
         "time": {"$gte": datetime.now() - timedelta(hours=2)}
     }
-    
     projection = {
+        # include data from water consumtion sensor only
         "payload.water-consm": 1,
         "_id": 0
     }
-
+    # run the above query
     readings = collection.find(query, projection)
-    
+    # append the sensor readings into an array
     for reading in readings:
         waterConsum_readings.append(float(reading['payload']['water-consm']))
-
     average = 0
-
+    #make sure values are in array to avoid dividing by 0
     if 0< len(waterConsum_readings):
         for i in waterConsum_readings
             average += i
