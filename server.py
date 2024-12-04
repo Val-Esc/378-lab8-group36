@@ -10,7 +10,8 @@ def main():
     try:
         client.admin.command('ping')
         print("Pinged your deployment. You successfully connected to MongoDB database End-to-End-IoT!")
-    except
+    except Exception as e:
+        print(e)
 
     
     # Prompt the user to enter the IP address and port number
