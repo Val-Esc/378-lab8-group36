@@ -8,6 +8,11 @@ def main():
     client = MongoClient(uri)
 
     try:
+        client.admin.command('ping')
+        print("Pinged your deployment. You successfully connected to MongoDB database End-to-End-IoT!")
+    except
+
+    
     # Prompt the user to enter the IP address and port number
     ipaddress = input("Enter the IP address to bind to (e.g., 127.0.0.1 or press Enter for 0.0.0.0): ") or '0.0.0.0'
     port = int(input("Enter the port number to bind to (e.g., 12345): "))
