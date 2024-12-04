@@ -65,7 +65,84 @@ def query2(collection):
 
 
 
-def query3():
+def query3(collection):
+    query_fridge1 = {
+        # identify kitchen fridge using device ID
+        "payload.parent_asset_uid": "yau-1te-5ms-zt3",
+        # use data from past 20 minutes
+        "time": {"$gte": datetime.now() - timedelta(minutes=20)}
+    }
+    projection_fridge1 = {
+        # include data from ammeter sensor only
+        "payload.ammeter-fridge1": 1,
+        "_id": 0
+    }
+    query_fridge2 = {
+        # identify the other fridge using device ID
+        "payload.parent_asset_uid": "4ba9959b-0ae2-40ec-8888-ffa9bc1db6f6",
+        # use data from past 20 minutes
+        "time": {"$gte": datetime.now() - timedelta(minutes=20)}
+    }
+    projection_fridge2 = {
+        # include data from ammeter sensor only
+        "payload.ammeter-fridge2": 1,
+        "_id": 0
+    }
+    query_washer = {
+        # identify the dish washer using device ID
+        "payload.parent_asset_uid": "47t-206-9t7-va5",
+        # use data from past 20 minutes
+        "time": {"$gte": datetime.now() - timedelta(minutes=20)}
+    }
+    projection_washer = {
+        # include data from ammeter sensor only
+        "payload.ammeter-wash": 1,
+        "_id": 0
+    }
+
+    fridge1_readings = collection.find(query_fridge1, projection_fridge1)
+    fridge2_readings = collection.find(query_fridge2, projection_fridge2)
+    washer_readings = collection.find(query_washer, projection_washer)
+
+    #make 3 arrays with the values of each ammeter
+    f1 = []
+    f2 = []
+    wash = []
+    for r in fridge1_readings:
+        f1.append(float(r['payload']['ammeter-fridge1']))
+
+    for r in fridge2_readings:
+        f2.append(float(r['payload']['ammeter-fridge2']))
+
+    for r in washer_readings:
+        wash.append(float(r['payload']['ammeter-wash']))
+
+    #get avearage of each ammeter
+    if f1:
+        fridge1_avr = sum(f1) / len(f1)
+    else:
+        fridge1_avr = 0
+    if f2:
+        fridge2_avr = sum(f2) / len(f2)
+    else:
+        fridge2_avr = 0
+    if wash:
+        washer_avr = sum(wash) / len(wash)
+    else:
+        washer_avr = 0
+
+    #find device with highest power usage
+    averages = [fridge1_avr, fridge2_avr, washer_avr]
+    most_power = max(averages)
+    if most_power == fridge1_avr:
+        return "Kitchen Fridge"
+    elif most_power == fridge2_avr:
+        return "Spare Fridge"
+    elif most_power == washer_avr:
+        return "Dish Washer"
+    else:
+        return 0
+    
 
 
 def main():
@@ -82,6 +159,7 @@ def main():
     except Exception as e:
         print(e)
     
+    db = client['test']
     #access collection
     collection = db.loTFrig_virtual
 
@@ -115,7 +193,7 @@ def main():
                 break
 
             # Decode and print received data from client
-            query_choice = data.decode()
+            query_choice = int.from_bytes(data, byteorder='big')
             print(f"Received from client: {received_message}")
             
             if query_choice == 1:
