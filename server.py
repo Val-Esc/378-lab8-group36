@@ -4,9 +4,11 @@ def main():
     from pymongo.mongo_client import MongoClient
 
     uri = "mongodb+srv://val123:val123@cluster0.pvx8w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-
+    
+    # Create a new client and connect to the server
     client = MongoClient(uri)
-
+    
+    # Send a ping to confirm a successful connection
     try:
         client.admin.command('ping')
         print("Pinged your deployment. You successfully connected to MongoDB database End-to-End-IoT!")
