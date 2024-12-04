@@ -6,7 +6,8 @@ def main():
     uri = "mongodb+srv://val123:val123@cluster0.pvx8w.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
     client = MongoClient(uri)
-    
+
+    try:
     # Prompt the user to enter the IP address and port number
     ipaddress = input("Enter the IP address to bind to (e.g., 127.0.0.1 or press Enter for 0.0.0.0): ") or '0.0.0.0'
     port = int(input("Enter the port number to bind to (e.g., 12345): "))
