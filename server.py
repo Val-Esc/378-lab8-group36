@@ -31,6 +31,9 @@ def query1(collection):
         average = 0
     return average
 
+
+
+
 def query2(collection):
     waterConsum_readings = []
 
@@ -48,6 +51,16 @@ def query2(collection):
     
     for reading in readings:
         waterConsum_readings.append(float(reading['payload']['water-consm']))
+
+    average = 0
+
+    if 0< len(waterConsum_readings):
+        for i in waterConsum_readings
+            average += i
+        average = average / len(waterConsum_readings)
+    else:
+        average = 0
+    return average
 
 
 
