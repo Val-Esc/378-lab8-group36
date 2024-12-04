@@ -34,6 +34,10 @@ def query1(collection):
 def query2(collection):
     waterConsum_readings = []
 
+    query = {
+        "payload.parent_asset_uid": "47t-206-9t7-va5",
+        "time": {"$gte": datetime.now() - timedelta(hours=2)}
+    }
 
 def query3():
 
