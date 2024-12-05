@@ -135,11 +135,14 @@ def query3(collection):
     averages = [fridge1_avr, fridge2_avr, washer_avr]
     most_power = max(averages)
     if most_power == fridge1_avr:
-        return "Kitchen Fridge"
+        result = "Kitchen Fridge " + str(fridge1_avr)
+        return result
     elif most_power == fridge2_avr:
-        return "Spare Fridge"
+        result = "Spare Fridge " + str(fridge2_avr)
+        return result
     elif most_power == washer_avr:
-        return "Dish Washer"
+        result = "Dish Washer " + str(washer_avr)
+        return result 
     else:
         return 0
     
