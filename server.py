@@ -29,7 +29,7 @@ def query1(collection):
         average = average / len(moistureSensor_readings)
     else:
         average = 0
-    return average
+    return str(average) + "%RH"
 
 
 
@@ -60,7 +60,7 @@ def query2(collection):
         average = average / len(waterConsum_readings)
     else:
         average = 0
-    return average
+    return str(average) + " GPM"
 
 
 
@@ -135,13 +135,13 @@ def query3(collection):
     averages = [fridge1_avr, fridge2_avr, washer_avr]
     most_power = max(averages)
     if most_power == fridge1_avr:
-        result = "Kitchen Fridge " + str(fridge1_avr)
+        result = "Kitchen Fridge " + str(fridge1_avr) + " amps"
         return result
     elif most_power == fridge2_avr:
-        result = "Spare Fridge " + str(fridge2_avr)
+        result = "Spare Fridge " + str(fridge2_avr) + " amps"
         return result
     elif most_power == washer_avr:
-        result = "Dish Washer " + str(washer_avr)
+        result = "Dish Washer " + str(washer_avr) + " amps"
         return result 
     else:
         return 0
